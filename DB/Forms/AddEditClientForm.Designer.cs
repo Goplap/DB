@@ -2,15 +2,8 @@
 {
     partial class AddEditClientForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.txtCompanyName = new System.Windows.Forms.TextBox();
@@ -43,7 +32,7 @@
             this.cmbClientType = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.Скасувати = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtCompanyName
@@ -61,7 +50,6 @@
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Назва компанії";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -168,23 +156,24 @@
             this.btnSave.TabIndex = 14;
             this.btnSave.Text = "Зберегти";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // Скасувати
+            // btnCancel
             // 
-            this.Скасувати.Location = new System.Drawing.Point(242, 77);
-            this.Скасувати.Name = "Скасувати";
-            this.Скасувати.Size = new System.Drawing.Size(75, 23);
-            this.Скасувати.TabIndex = 15;
-            this.Скасувати.Text = "Скасувати";
-            this.Скасувати.UseVisualStyleBackColor = true;
-            this.Скасувати.Click += new System.EventHandler(this.Скасувати_Click);
+            this.btnCancel.Location = new System.Drawing.Point(242, 77);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 15;
+            this.btnCancel.Text = "Скасувати";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // AddEditClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Скасувати);
+            this.ClientSize = new System.Drawing.Size(680, 130);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmbClientType);
@@ -200,9 +189,13 @@
             this.Controls.Add(this.txtContactPerson);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtCompanyName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddEditClientForm";
-            this.Text = "AddEditClientForm";
-            this.Load += new System.EventHandler(this.AddEditClientForm_Load);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Клієнт";
+            this.Load += new System.EventHandler(this.AddEditClientForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,6 +218,6 @@
         private System.Windows.Forms.ComboBox cmbClientType;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button Скасувати;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

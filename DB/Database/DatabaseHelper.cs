@@ -12,8 +12,7 @@ namespace DB.Database
         public DatabaseHelper()
         {
 
-            connectionString = @"Data Source=localhost;Initial Catalog=MarketingDB;Integrated Security=True;Trust Server Certificate=True";
-            ;
+            connectionString = @"Data Source=localhost;Initial Catalog=MarketingDept;Integrated Security=True;TrustServerCertificate=True";
         }
 
         public DataTable ExecuteQuery(string query, SqlParameter[] parameters = null)

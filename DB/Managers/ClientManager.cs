@@ -27,9 +27,9 @@ namespace DB.Managers
                 new SqlParameter("@CompanyName", companyName),
                 new SqlParameter("@ContactPerson", contactPerson),
                 new SqlParameter("@Phone", phone),
-                new SqlParameter("@Email", email ?? (object)DBNull.Value),
-                new SqlParameter("@Address", address ?? (object)DBNull.Value),
-                new SqlParameter("@Industry", industry ?? (object)DBNull.Value),
+                new SqlParameter("@Email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email),
+                new SqlParameter("@Address", string.IsNullOrWhiteSpace(address) ? (object)DBNull.Value : address),
+                new SqlParameter("@Industry", string.IsNullOrWhiteSpace(industry) ? (object)DBNull.Value : industry),
                 new SqlParameter("@ClientType", clientType)
             };
 
@@ -56,9 +56,9 @@ namespace DB.Managers
                 new SqlParameter("@CompanyName", companyName),
                 new SqlParameter("@ContactPerson", contactPerson),
                 new SqlParameter("@Phone", phone),
-                new SqlParameter("@Email", email ?? (object)DBNull.Value),
-                new SqlParameter("@Address", address ?? (object)DBNull.Value),
-                new SqlParameter("@Industry", industry ?? (object)DBNull.Value),
+                new SqlParameter("@Email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email),
+                new SqlParameter("@Address", string.IsNullOrWhiteSpace(address) ? (object)DBNull.Value : address),
+                new SqlParameter("@Industry", string.IsNullOrWhiteSpace(industry) ? (object)DBNull.Value : industry),
                 new SqlParameter("@ClientType", clientType)
             };
 
@@ -76,7 +76,29 @@ namespace DB.Managers
             return dbHelper.ExecuteNonQuery(query, parameters) > 0;
         }
 
-        // ✅ 4. ОТРИМАННЯ ВСІХ
+        // ✅ 4. ОТРИМАННЯ ОДНОГО КЛІЄНТА
+        public DataRow GetClientById(int clientId)
+        {
+            string query = @"SELECT ClientID, CompanyName, ContactPerson, 
+                                   Phone, Email, Address, Industry, ClientType
+                            FROM Clients
+                            WHERE ClientID = @ClientID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@ClientID", clientId)
+            };
+
+            DataTable dt = dbHelper.ExecuteQuery(query, parameters);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return dt.Rows[0];
+            }
+
+            return null;
+        }
+
+        // ✅ 5. ОТРИМАННЯ ВСІХ
         public DataTable GetAllClients()
         {
             string query = @"SELECT ClientID, CompanyName, ContactPerson, 
@@ -87,7 +109,7 @@ namespace DB.Managers
             return dbHelper.ExecuteQuery(query);
         }
 
-        // ✅ 5. ПОШУК
+        // ✅ 6. ПОШУК
         public DataTable SearchClients(string searchTerm, string clientType = null)
         {
             string query = @"SELECT ClientID, CompanyName, ContactPerson, 
@@ -95,13 +117,15 @@ namespace DB.Managers
                             FROM Clients
                             WHERE (@SearchTerm IS NULL OR 
                                   CompanyName LIKE '%' + @SearchTerm + '%' OR
-                                  ContactPerson LIKE '%' + @SearchTerm + '%')
+                                  ContactPerson LIKE '%' + @SearchTerm + '%' OR
+                                  Phone LIKE '%' + @SearchTerm + '%' OR
+                                  Email LIKE '%' + @SearchTerm + '%')
                             AND (@ClientType IS NULL OR ClientType = @ClientType)
                             ORDER BY CompanyName";
 
             SqlParameter[] parameters = {
-                new SqlParameter("@SearchTerm", searchTerm ?? (object)DBNull.Value),
-                new SqlParameter("@ClientType", clientType ?? (object)DBNull.Value)
+                new SqlParameter("@SearchTerm", string.IsNullOrWhiteSpace(searchTerm) ? (object)DBNull.Value : searchTerm),
+                new SqlParameter("@ClientType", string.IsNullOrWhiteSpace(clientType) ? (object)DBNull.Value : clientType)
             };
 
             return dbHelper.ExecuteQuery(query, parameters);

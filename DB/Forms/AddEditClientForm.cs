@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using DB.Managers;
 
@@ -32,16 +33,81 @@ namespace DB.Forms
 
         private void LoadClientData()
         {
-            // TODO: Завантажити дані клієнта для редагування
-            // Для простоти - пропускаємо
+            try
+            {
+                // Отримати дані клієнта через ClientManager
+                DataRow client = clientManager.GetClientById(clientId.Value);
+
+                if (client != null)
+                {
+                    // Заповнення полів даними з бази
+                    txtCompanyName.Text = client["CompanyName"]?.ToString() ?? "";
+                    txtContactPerson.Text = client["ContactPerson"]?.ToString() ?? "";
+                    txtPhone.Text = client["Phone"]?.ToString() ?? "";
+                    txtEmail.Text = client["Email"] != DBNull.Value ? client["Email"]?.ToString() : "";
+                    txtAddress.Text = client["Address"] != DBNull.Value ? client["Address"]?.ToString() : "";
+                    txtIndustry.Text = client["Industry"] != DBNull.Value ? client["Industry"]?.ToString() : "";
+
+                    // Вибір типу клієнта
+                    string clientType = client["ClientType"]?.ToString() ?? "";
+                    if (!string.IsNullOrEmpty(clientType))
+                    {
+                        int index = cmbClientType.Items.IndexOf(clientType);
+                        if (index >= 0)
+                            cmbClientType.SelectedIndex = index;
+                        else
+                            cmbClientType.SelectedIndex = 1; // За замовчуванням "Постійний"
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Клієнта не знайдено в базі даних!",
+                                  "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка завантаження даних клієнта:\n{ex.Message}",
+                              "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Перевірка обов'язкових полів
             if (string.IsNullOrWhiteSpace(txtCompanyName.Text))
             {
                 MessageBox.Show("Введіть назву компанії!",
                               "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCompanyName.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtContactPerson.Text))
+            {
+                MessageBox.Show("Введіть контактну особу!",
+                              "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtContactPerson.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPhone.Text))
+            {
+                MessageBox.Show("Введіть номер телефону!",
+                              "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPhone.Focus();
+                return;
+            }
+
+            if (cmbClientType.SelectedItem == null)
+            {
+                MessageBox.Show("Оберіть тип клієнта!",
+                              "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbClientType.Focus();
                 return;
             }
 
@@ -50,38 +116,53 @@ namespace DB.Forms
                 bool success;
                 if (clientId.HasValue)
                 {
-                    // Оновлення
+                    // Оновлення існуючого клієнта
                     success = clientManager.UpdateClient(
                         clientId.Value,
-                        txtCompanyName.Text,
-                        txtContactPerson.Text,
-                        txtPhone.Text,
-                        txtEmail.Text,
-                        txtAddress.Text,
-                        txtIndustry.Text,
+                        txtCompanyName.Text.Trim(),
+                        txtContactPerson.Text.Trim(),
+                        txtPhone.Text.Trim(),
+                        txtEmail.Text.Trim(),
+                        txtAddress.Text.Trim(),
+                        txtIndustry.Text.Trim(),
                         cmbClientType.SelectedItem.ToString()
                     );
+
+                    if (success)
+                    {
+                        MessageBox.Show("Дані клієнта успішно оновлено!",
+                                      "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
-                    // Додавання
+                    // Додавання нового клієнта
                     success = clientManager.AddClient(
-                        txtCompanyName.Text,
-                        txtContactPerson.Text,
-                        txtPhone.Text,
-                        txtEmail.Text,
-                        txtAddress.Text,
-                        txtIndustry.Text,
+                        txtCompanyName.Text.Trim(),
+                        txtContactPerson.Text.Trim(),
+                        txtPhone.Text.Trim(),
+                        txtEmail.Text.Trim(),
+                        txtAddress.Text.Trim(),
+                        txtIndustry.Text.Trim(),
                         cmbClientType.SelectedItem.ToString()
                     );
+
+                    if (success)
+                    {
+                        MessageBox.Show("Клієнта успішно додано!",
+                                      "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
 
                 if (success)
                 {
-                    MessageBox.Show("Дані успішно збережено!",
-                                  "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Не вдалося зберегти дані клієнта!",
+                                  "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -95,21 +176,6 @@ namespace DB.Forms
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void Скасувати_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddEditClientForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
