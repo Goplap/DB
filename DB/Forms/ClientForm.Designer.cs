@@ -36,7 +36,9 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridViewClients = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -115,18 +117,30 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 100);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // dataGridViewClients
+            // 
+            this.dataGridViewClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewClients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewClients.Location = new System.Drawing.Point(0, 100);
+            this.dataGridViewClients.Name = "dataGridViewClients";
+            this.dataGridViewClients.Size = new System.Drawing.Size(800, 350);
+            this.dataGridViewClients.TabIndex = 1;
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridViewClients);
             this.Controls.Add(this.panel1);
             this.Name = "ClientForm";
             this.Text = "ClientForm";
             this.Load += new System.EventHandler(this.ClientForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -141,5 +155,6 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridViewClients;
     }
 }
