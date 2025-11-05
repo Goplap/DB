@@ -58,18 +58,19 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.label1.Text = "Назва компанії";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(124, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
+            this.label2.Text = "Контактна особа";
             // 
             // txtContactPerson
             // 
@@ -83,9 +84,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(233, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "label3";
+            this.label3.Text = "Номер телефону";
             // 
             // txtPhone
             // 
@@ -99,9 +100,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(343, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(101, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "label4";
+            this.label4.Text = "Електронна пошта";
             // 
             // txtEmail
             // 
@@ -115,9 +116,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(449, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "label5";
+            this.label5.Text = "Адреса";
             // 
             // txtAddress
             // 
@@ -131,9 +132,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(555, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "label6";
+            this.label6.Text = "Індустрія";
             // 
             // txtIndustry
             // 
@@ -155,9 +156,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(12, 63);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.Size = new System.Drawing.Size(66, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "label7";
+            this.label7.Text = "Тип клієнта";
             // 
             // btnSave
             // 
@@ -170,12 +171,13 @@
             // 
             // Скасувати
             // 
-            this.Скасувати.Location = new System.Drawing.Point(258, 79);
+            this.Скасувати.Location = new System.Drawing.Point(242, 77);
             this.Скасувати.Name = "Скасувати";
             this.Скасувати.Size = new System.Drawing.Size(75, 23);
             this.Скасувати.TabIndex = 15;
-            this.Скасувати.Text = "btnCancel";
+            this.Скасувати.Text = "Скасувати";
             this.Скасувати.UseVisualStyleBackColor = true;
+            this.Скасувати.Click += new System.EventHandler(this.Скасувати_Click);
             // 
             // AddEditClientForm
             // 
@@ -200,7 +202,6 @@
             this.Controls.Add(this.txtCompanyName);
             this.Name = "AddEditClientForm";
             this.Text = "AddEditClientForm";
-            this.Load += new System.EventHandler(this.AddEditClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

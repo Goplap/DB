@@ -11,10 +11,8 @@ namespace DB.Database
 
         public DatabaseHelper()
         {
-            connectionString = @"Data Source=localhost\SQLEXPRESS;
-                               Initial Catalog=MarketingDB;
-                               Integrated Security=True;
-                               TrustServerCertificate=True;";
+            string dbPath = System.IO.Path.Combine(Application.StartupPath, "MarketingDB.mdf");
+            connectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={dbPath};Integrated Security=True;TrustServerCertificate=True";
         }
 
         public DataTable ExecuteQuery(string query, SqlParameter[] parameters = null)

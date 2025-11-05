@@ -96,5 +96,15 @@ namespace DB.Forms
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void Скасувати_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

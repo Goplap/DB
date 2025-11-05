@@ -14,8 +14,17 @@ namespace DB.Forms
             InitializeComponent();
             clientManager = new ClientManager();
             analyticsManager = new AnalyticsManager();
+
+            // Підключення обробників подій
+            this.Load += ClientForm_Load;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            btnAdd.Click += btnAdd_Click;
+            btnEdit.Click += btnEdit_Click;
+            btnDelete.Click += btnDelete_Click;
+            btnRefresh.Click += btnRefresh_Click;
+            btnStatistics.Click += btnStatistics_Click;
+
             SetupDataGridView();
-            LoadClients();
         }
 
         private void SetupDataGridView()
@@ -24,6 +33,24 @@ namespace DB.Forms
             dataGridViewClients.AllowUserToAddRows = false;
             dataGridViewClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        // ✅ ОБРОБНИК ЗАВАНТАЖЕННЯ ФОРМИ
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+            LoadClients();
+        }
+
+        // ✅ ОБРОБНИК КЛІКУ НА LABEL (просто порожній, щоб не було помилки)
+        private void label1_Click(object sender, EventArgs e)
+        {
+            // Нічого не робимо
+        }
+
+        // ✅ ОБРОБНИК МАЛЮВАННЯ ПАНЕЛІ (просто порожній, щоб не було помилки)
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            // Нічого не робимо
         }
 
         // ✅ ЗАВАНТАЖЕННЯ КЛІЄНТІВ
