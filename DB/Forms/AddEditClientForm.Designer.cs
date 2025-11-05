@@ -172,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 130);
+            this.ClientSize = new System.Drawing.Size(680, 182);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
@@ -195,7 +195,7 @@
             this.Name = "AddEditClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Клієнт";
-            this.Load += new System.EventHandler(this.AddEditClientForm_Load_1);
+            this.Load += new System.EventHandler(this.AddEditClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

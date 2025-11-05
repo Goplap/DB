@@ -16,14 +16,19 @@ namespace DB.Forms
             this.clientId = clientId;
             clientManager = new ClientManager();
 
-            // Заповнити ComboBox
-            cmbClientType.Items.AddRange(new string[] { "VIP", "Постійний", "Потенційний" });
-            cmbClientType.SelectedIndex = 1;
+            // ✅ ВИПРАВЛЕНО: використовуємо точні значення з CHECK constraint
+            // Можливі варіанти: "Новий", "Постійний", "VIP", "Потенційний"
+            cmbClientType.Items.Clear();
+            cmbClientType.Items.AddRange(new string[] {
+                "Діючий",
+                "VIP",
+                "Потенційний"
+            });
+            cmbClientType.SelectedIndex = 0;
 
             if (clientId.HasValue)
             {
                 this.Text = "Редагувати клієнта";
-                LoadClientData();
             }
             else
             {
@@ -31,16 +36,22 @@ namespace DB.Forms
             }
         }
 
+        private void AddEditClientForm_Load_1(object sender, EventArgs e)
+        {
+            if (clientId.HasValue)
+            {
+                LoadClientData();
+            }
+        }
+
         private void LoadClientData()
         {
             try
             {
-                // Отримати дані клієнта через ClientManager
                 DataRow client = clientManager.GetClientById(clientId.Value);
 
                 if (client != null)
                 {
-                    // Заповнення полів даними з бази
                     txtCompanyName.Text = client["CompanyName"]?.ToString() ?? "";
                     txtContactPerson.Text = client["ContactPerson"]?.ToString() ?? "";
                     txtPhone.Text = client["Phone"]?.ToString() ?? "";
@@ -52,11 +63,15 @@ namespace DB.Forms
                     string clientType = client["ClientType"]?.ToString() ?? "";
                     if (!string.IsNullOrEmpty(clientType))
                     {
-                        int index = cmbClientType.Items.IndexOf(clientType);
+                        int index = cmbClientType.FindStringExact(clientType);
                         if (index >= 0)
                             cmbClientType.SelectedIndex = index;
                         else
-                            cmbClientType.SelectedIndex = 1; // За замовчуванням "Постійний"
+                        {
+                            // Якщо значення не знайдено, додаємо його до списку
+                            cmbClientType.Items.Add(clientType);
+                            cmbClientType.SelectedItem = clientType;
+                        }
                     }
                 }
                 else
@@ -114,6 +129,8 @@ namespace DB.Forms
             try
             {
                 bool success;
+                string selectedClientType = cmbClientType.SelectedItem.ToString();
+
                 if (clientId.HasValue)
                 {
                     // Оновлення існуючого клієнта
@@ -125,7 +142,7 @@ namespace DB.Forms
                         txtEmail.Text.Trim(),
                         txtAddress.Text.Trim(),
                         txtIndustry.Text.Trim(),
-                        cmbClientType.SelectedItem.ToString()
+                        selectedClientType
                     );
 
                     if (success)
@@ -144,7 +161,7 @@ namespace DB.Forms
                         txtEmail.Text.Trim(),
                         txtAddress.Text.Trim(),
                         txtIndustry.Text.Trim(),
-                        cmbClientType.SelectedItem.ToString()
+                        selectedClientType
                     );
 
                     if (success)
@@ -167,7 +184,7 @@ namespace DB.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка збереження: {ex.Message}",
+                MessageBox.Show($"Помилка збереження: {ex.Message}\n\nДеталі: {ex.ToString()}",
                               "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -176,6 +193,11 @@ namespace DB.Forms
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void AddEditClientForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
