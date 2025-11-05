@@ -186,6 +186,11 @@
     </Compile>
     <Compile Include="Managers\AnalyticsManager.cs" />
     <Compile Include="Managers\ClientManager.cs" />
+    <Compile Include="MarketingDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MarketingDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MarketingDeptDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -211,6 +216,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="MarketingDBDataSet.xsc">
+      <DependentUpon>MarketingDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MarketingDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MarketingDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MarketingDBDataSet.xss">
+      <DependentUpon>MarketingDBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="MarketingDeptDataSet.xsc">
       <DependentUpon>MarketingDeptDataSet.xsd</DependentUpon>
     </None>

@@ -106,5 +106,10 @@ namespace DB.Forms
         {
 
         }
+
+        private void AddEditClientForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
