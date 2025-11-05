@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace MarketingCRMSystem.Database
+namespace DB.Database
 {
     public class DatabaseHelper
     {
@@ -11,7 +11,6 @@ namespace MarketingCRMSystem.Database
 
         public DatabaseHelper()
         {
-            // ВАЖЛИВО: Змініть на ваш SQL Server
             connectionString = @"Data Source=localhost\SQLEXPRESS;
                                Initial Catalog=MarketingDB;
                                Integrated Security=True;

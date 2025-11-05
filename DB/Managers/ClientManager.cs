@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using MarketingCRMSystem.Database;
+using DB.Database;
 
-namespace MarketingCRMSystem.Managers
+namespace DB.Managers
 {
     public class ClientManager
     {
@@ -14,6 +14,7 @@ namespace MarketingCRMSystem.Managers
             dbHelper = new DatabaseHelper();
         }
 
+        // ✅ 1. ДОДАВАННЯ
         public bool AddClient(string companyName, string contactPerson,
                              string phone, string email, string address,
                              string industry, string clientType)
@@ -35,6 +36,7 @@ namespace MarketingCRMSystem.Managers
             return dbHelper.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        // ✅ 2. ОНОВЛЕННЯ
         public bool UpdateClient(int clientId, string companyName, string contactPerson,
                                 string phone, string email, string address,
                                 string industry, string clientType)
@@ -63,6 +65,7 @@ namespace MarketingCRMSystem.Managers
             return dbHelper.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        // ✅ 3. ВИДАЛЕННЯ
         public bool DeleteClient(int clientId)
         {
             string query = "DELETE FROM Clients WHERE ClientID = @ClientID";
@@ -73,6 +76,7 @@ namespace MarketingCRMSystem.Managers
             return dbHelper.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        // ✅ 4. ОТРИМАННЯ ВСІХ
         public DataTable GetAllClients()
         {
             string query = @"SELECT ClientID, CompanyName, ContactPerson, 
@@ -83,6 +87,7 @@ namespace MarketingCRMSystem.Managers
             return dbHelper.ExecuteQuery(query);
         }
 
+        // ✅ 5. ПОШУК
         public DataTable SearchClients(string searchTerm, string clientType = null)
         {
             string query = @"SELECT ClientID, CompanyName, ContactPerson, 
@@ -97,20 +102,6 @@ namespace MarketingCRMSystem.Managers
             SqlParameter[] parameters = {
                 new SqlParameter("@SearchTerm", searchTerm ?? (object)DBNull.Value),
                 new SqlParameter("@ClientType", clientType ?? (object)DBNull.Value)
-            };
-
-            return dbHelper.ExecuteQuery(query, parameters);
-        }
-
-        public DataTable GetClientsByType(string clientType)
-        {
-            string query = @"SELECT ClientID, CompanyName, ContactPerson, Phone, Email, Industry
-                            FROM Clients
-                            WHERE ClientType = @ClientType
-                            ORDER BY CompanyName";
-
-            SqlParameter[] parameters = {
-                new SqlParameter("@ClientType", clientType)
             };
 
             return dbHelper.ExecuteQuery(query, parameters);
